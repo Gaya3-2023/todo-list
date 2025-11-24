@@ -1,16 +1,35 @@
-# React + Vite
+## Todo List
+  Building a Todo List app for weekly assignments using Vite with a React template.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup Instructions:
+ 1. Create a new repository in GitHub named as 'todo-list'. Do not add a .gitignore or a license at this stage.
+ 2. Clone the repository locally.
+ 3. Initialize the Vite + React App
+    
+    open a terminal in the local repository directory and  run the below command to scaffold out a Vite project using the React template
+    
+        npm create vite@latest . -- --template react
+        npm install  -- to install all the dependencies packages
 
-Currently, two official plugins are available:
+## To start the server:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ 1. Start the development server with the command : 
+ 
+    npm run dev
+ 2. open a browser to the Local link listed in the CLI.
+ 
+ 3. Keep the development server running and SPA open in a browser window while you work.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Week 1: 
+  1. create and checkout a new branch for week 1's assignment 'week-01-setup'
+  
+  2. publish the branch to GitHub
+  
+  3. Modify the code to display a title 'Todo List' and three todos beneath it.
+  
+  4. Enable ESLint to Highlight code problems and integrate Prettier 
+  
+  5. Commit changes in local working branch and push them up to GitHub and create a Pull Request(PR) comparing the working branch(week-01-setup) to main.   
+  
+  At the end of Week1, App should contains three todos under the app's title 'Todo List'
+  
