@@ -32,4 +32,11 @@
   5. Commit changes in local working branch and push them up to GitHub and create a Pull Request(PR) comparing the working branch(week-01-setup) to main.   
   
   At the end of Week1, App should contains three todos under the app's title 'Todo List'
+
+  ## Week 2:
+   1.Create TodoList.jsx and move all todo code from App.jsx to TodoList.
+   
+   2.Create TodoForm.jsx with a non-functioning form with 1 input field and a submit button,
+
+   3.Place the instance of TodoList and TodoForm into App component
   
