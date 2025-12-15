@@ -46,4 +46,10 @@
    1. Render each static todo in a TodoListItem Component.
 
    2. In App Component, create a new state value that will hold a new todo. The browser should render that new state value between the form and the todo list.
+
+   ## Week 5:
+   1. The app now allow users to add a todo and keep the input focused when a todo is submitted using the button or the enter key.
+
+   2. Renders all entered todos in a list.
+   
      
