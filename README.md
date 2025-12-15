@@ -39,4 +39,11 @@
    2.Create TodoForm.jsx with a non-functioning form with 1 input field and a submit button,
 
    3.Place the instance of TodoList and TodoForm into App component
-  
+
+   ## Week 3: Break
+
+   ## Week 4:
+   1. Render each static todo in a TodoListItem Component.
+
+   2. In App Component, create a new state value that will hold a new todo. The browser should render that new state value between the form and the todo list.
+     
