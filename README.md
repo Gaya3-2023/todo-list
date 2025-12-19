@@ -52,7 +52,7 @@
 
    2. Renders all entered todos in a list.
 
-    ## Week 6:
+  ## Week 6:
    1. Render a message 'Add todo above to get started' when the todolist is empty.
    2. Disable the Add Todo button when the input is empty.
    3. Allow users to complete a todo. And list only the todos which is not complete.
