@@ -51,5 +51,11 @@
    1. The app now allow users to add a todo and keep the input focused when a todo is submitted using the button or the enter key.
 
    2. Renders all entered todos in a list.
-   
+
+  ## Week 6:
+   1. Render a message 'Add todo above to get started' when the todolist is empty.
+   2. Disable the Add Todo button when the input is empty.
+   3. Allow users to complete a todo. And list only the todos which is not complete.
+   4. Convert form to controlled component.
+      
      
