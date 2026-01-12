@@ -58,4 +58,13 @@
    3. Allow users to complete a todo. And list only the todos which is not complete.
    4. Convert form to controlled component.
       
-     
+  ## Week 7: Break
+
+  ## Week 8:
+   1. Organized components into features and shared directories for better structure.
+   2. Created TextInputWithLabel as a reusable component to handle inputs and labels.
+   3. Refactored TodoForm to use TextInputWithLabel for consistency.
+   4. Enabled users to edit existing todos and toggle between display and edit modes.
+   5. Added local state (workingTitle, isEditing) for controlled editing; updateTodo updates the todo list.
+   6. Users can complete todos, edit titles, cancel edits, and save updates seamlessly.   
+      
