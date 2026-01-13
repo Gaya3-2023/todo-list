@@ -68,3 +68,12 @@
    5. Added local state (workingTitle, isEditing) for controlled editing; updateTodo updates the todo list.
    6. Users can complete todos, edit titles, cancel edits, and save updates seamlessly.   
       
+  ## Week 9:
+
+   1. Configure the Airtable base and load todos from Airtable.
+   2. Show a loading message while fetching todos from the API. Once the request completes,re-render the UI with the todo list(or display the original paragraph if no todos are returned).
+   3. Enhance the "Add New Todo" functionality to show a saving indicator on the Add Todo button while the todo is being saved to Airtable.
+   4. Update the Edit and Complete Todo features so that changes are persisted in Airtable.
+   5. Display errors messages to the user if there are any fetch issues.
+   6. overall, the app should retrieve todos from Airtable,allow users to create and edit todos , persist all changes to Airtable, and show any API-related errors to the user.
+       
