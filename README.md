@@ -76,4 +76,12 @@
    4. Update the Edit and Complete Todo features so that changes are persisted in Airtable.
    5. Display errors messages to the user if there are any fetch issues.
    6. overall, the app should retrieve todos from Airtable,allow users to create and edit todos , persist all changes to Airtable, and show any API-related errors to the user.
-       
+
+
+   ## Week 10:
+
+   1. Updated Airtable table by adding new Field 'createdTime'
+   2. created utility function 'encodeUrl' to handle sortby,direction and search todos url which is used in four locations: useEffect,addTodo,updateTodo and completeTodo. 
+   3. Created a component 'TodosViewForm' to provide the user with a way to choose sort and direction(asc/desc). Also to provide options to search todos titles 
+   4. Overall, the app should use the API to sort todos by title or createdTime and use the API to search for todos based on title contents.    
+   
