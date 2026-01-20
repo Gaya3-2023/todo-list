@@ -1,1 +1,9 @@
+body{
+    background-color: rgb(243, 243, 182);
+}
 
+input[type=text] {
+  
+  box-sizing: border-box;
+  border: 2px solid purple;  
+}
