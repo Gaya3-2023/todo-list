@@ -84,4 +84,10 @@
    2. created utility function 'encodeUrl' to handle sortby,direction and search todos url which is used in four locations: useEffect,addTodo,updateTodo and completeTodo. 
    3. Created a component 'TodosViewForm' to provide the user with a way to choose sort and direction(asc/desc). Also to provide options to search todos titles 
    4. Overall, the app should use the API to sort todos by title or createdTime and use the API to search for todos based on title contents.    
+
+   ## Week 11:
+
+   1. Updated the App.jsx to use useCallback for URL string encoding.
+   2. Updated TodosViewForm.jsx to pause API requests while the user is typing
+   3. Corrected the label name 'Direction' in TodosViewForm   
    

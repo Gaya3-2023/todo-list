@@ -1,7 +1,18 @@
+import {useState,useEffect} from 'react';
+
 export default function TodosViewForm({
     sortDirection,setSortDirection,
     sortField,setSortField,
     queryString,setQueryString}){
+
+    const [localQueryString,setLocalQueryString] = useState(queryString);
+
+    useEffect(() => {
+        const debounce = setTimeout(() => {setQueryString(localQueryString)},500);
+         // Cleanup function to clear the timeout 
+        return () => {clearTimeout(debounce)};     
+    },[localQueryString,setQueryString]);   //end of useEffect
+   
 
     /*Function preventRefresh**/
     function preventRefresh(e){
@@ -13,9 +24,9 @@ export default function TodosViewForm({
         <form onSubmit={preventRefresh}>
            <div>
              <label htmlFor="queryString">Search todos: </label>
-             <input type="text" name="queryString" id="queryString" value={queryString} 
-                       onChange ={(e) => setQueryString(e.target.value)} />
-             <button type="button" name="clear" onClick={() => setQueryString('')}>Clear</button> 
+             <input type="text" name="queryString" id="queryString" value={localQueryString} 
+                       onChange ={(e) => setLocalQueryString(e.target.value)} />
+             <button type="button" name="clear" onClick={() => setLocalQueryString('')}>Clear</button> 
           </div>  
           <div>
                 <label htmlFor="SortBy">Sort by</label>
@@ -23,7 +34,7 @@ export default function TodosViewForm({
                    <option value="title">Title</option>
                    <option value="createdTime">Time added</option>
                 </select>
-                <label htmlFor="Direction">Sort by</label>
+                <label htmlFor="Direction">Direction</label>
                 <select name="Direction" id="Direction" value={sortDirection} onChange={(e) =>  setSortDirection(e.target.value)} >
                    <option value="asc">Ascending</option>
                    <option value="desc">Descending</option>
