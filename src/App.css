@@ -1,9 +1,39 @@
+#root{
+    background-color:aquamarine;        
+}
 body{
-    background-color: rgb(243, 243, 182);
+  background-color: rgb(120, 179, 179);
+  font-family:sans-serif; 
+}
+h1,h2{
+    font-family:'Times New Roman', Times, serif;
+    color:black;
+}
+div#title{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  margin:0.5rem 0;
+}
+input[type=button],button {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 15%;
+  border-color: black;
+  border-style:solid;
+}
+input[type=text]{ 
+  margin-left: 10px;
+  margin-right: 10px;
+  border-style: solid;
+  border-color: black;
 }
 
-input[type=text] {
-  
-  box-sizing: border-box;
-  border: 2px solid purple;  
+select {
+  padding: 4px 6px;
+  border-color:black;
+  border-radius: 2px;  
+  margin-left: 10px;
+  margin-right: 10px;
 }
+

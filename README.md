@@ -90,4 +90,23 @@
    1. Updated the App.jsx to use useCallback for URL string encoding.
    2. Updated TodosViewForm.jsx to pause API requests while the user is typing
    3. Corrected the label name 'Direction' in TodosViewForm   
+
+   ## Week 12:
+
+   1. Installed Babel plugin for styled components 'npm install --save-dev babel-plugin-styled-components'
+   2. Updated Vite.config.js to register this plugin with Vite's React plugin.
+   3. Updated App.css to provide some style changes such as assign font-families for headings and other textual   
+      elements,Change the background of the body and/or #root and common styles for buttons and text inputs.
+   4. Created css modules for App,TodoList and TodoListItem.
+      App.module.css: Created a border on the div containing the error message and center the app in the body.
+      TodoList.module.css : Eliminated the extra padding on the unordered list and removed the list item bullets.
+      TodoListItem.module.css: Added small amount of padding to the bottom of the list item.
+   5. Used styled-components inside TodosForm,TodosViewForm, and TextInputWithLabel for the below changes.
+        Added a small amount of padding on the items in each form to give them some spacing.
+        Made the font in the TodoForm's button italic when it is disabled.
+   6. Added a todolist logo alongside the title. Added todolist logo under the new folder assets.
+   7. Updated App.jsx to provide error message content in try block.
+   8. Installed testing libraries (as per week 8) 'npm install --save-dev @testing-library/dom @testing-library/ 
+      react @testing-library/jest-dom @testing-library/user-event eslint-plugin-jest-dom jsdom vitest' . Updated package.json to add 'test:"vitest" under scripts.  Also, updated the vite.config.js to work with test libraries and look for setup file(test.setup.js)
+
    
