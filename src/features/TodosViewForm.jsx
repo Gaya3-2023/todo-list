@@ -1,4 +1,10 @@
 import {useState,useEffect} from 'react';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+          padding:10px;
+          > div{ padding :10px 0;}
+          `; 
 
 export default function TodosViewForm({
     sortDirection,setSortDirection,
@@ -21,7 +27,7 @@ export default function TodosViewForm({
     
     return (
         <>
-        <form onSubmit={preventRefresh}>
+        <StyledForm onSubmit={preventRefresh}>
            <div>
              <label htmlFor="queryString">Search todos: </label>
              <input type="text" name="queryString" id="queryString" value={localQueryString} 
@@ -40,7 +46,7 @@ export default function TodosViewForm({
                    <option value="desc">Descending</option>
                 </select>
            </div>
-        </form>
+        </StyledForm>
         </>
     )
 };

@@ -3,6 +3,8 @@ import './App.css';
 import TodoList from './features/TodoList/TodoList.jsx';
 import TodoForm from './features/TodoForm.jsx';
 import TodosViewForm from './features/TodosViewForm.jsx';
+import todolistlogo from './assets/to-do-list.png';
+import styles from './App.module.css';
 
 function App() {  
 
@@ -36,7 +38,7 @@ function App() {
        try{
            const resp = await fetch(encodeUrl(),options);
            if (!resp.ok){
-              throw new Error(resp.message);
+               throw new Error(`Fetch Error! status: ${resp.status}`);  
            } 
            const response = await resp.json();
            const fetchedValues = response.records.map((record) => {
@@ -73,7 +75,7 @@ function App() {
       setIsSaving(true);
       const resp = await fetch(encodeUrl(),options);
       if(!resp.ok){
-        throw new Error(resp.message)
+        throw new Error(`AddTodo Fetch Url Error! status: ${resp.status}`);   
       }        
       const {records} = await resp.json();     
       const savedTodo = { id:records[0].id, ...records[0].fields, }
@@ -100,7 +102,7 @@ function App() {
     try{
       const resp = await fetch(encodeUrl(),options);
       if(!resp.ok){
-        throw new Error(resp.message)
+       throw new Error(`Update Airtable Fetch Url Error! status: ${resp.status} `);   
       }
       setTodoList(updatedTodos);     
 
@@ -156,17 +158,20 @@ function App() {
         
   }// end of updateTodo
   return (
-    <div>
-      <h1>Todo List</h1>
+    <div className={styles.centerbody}>
+      <div id="title">   
+        <img src={todolistlogo} alt="Todo Logo" width='35' />
+        <h1>Todo List</h1>
+      </div>
       <TodoForm onAddTodo={addTodo} isSaving={isSaving}/>
       <TodoList todoList={todoList} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo} isLoading={isLoading}/> 
       <hr/>
        <TodosViewForm sortDirection={sortDirection} setSortDirection={setSortDirection} 
                       sortField={sortField} setSortField={setSortField}
                       queryString={queryString} setQueryString={setQueryString} />
-       {errorMessage  && <div><hr/><p>{errorMessage}</p>
+       {errorMessage  && (<div className={styles.errormsg}><hr/><p>{errorMessage}</p>
        <input type="button" value="Dismiss Error Message" onClick ={()=> setErrorMessage('')}/>
-       </div>
+       </div>)
        }     
     </div>
   );

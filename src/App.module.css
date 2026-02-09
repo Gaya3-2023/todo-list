@@ -1,0 +1,12 @@
+.centerbody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.errormsg{
+    border :2px solid Brown;
+    border-radius : 4px;
+    width:35%;
+}
