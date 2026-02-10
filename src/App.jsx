@@ -1,17 +1,17 @@
-import { useState,useEffect, useCallback } from 'react';
+import { useState,useEffect, useCallback,useReducer } from 'react';
 import './App.css';
 import TodoList from './features/TodoList/TodoList.jsx';
 import TodoForm from './features/TodoForm.jsx';
 import TodosViewForm from './features/TodosViewForm.jsx';
 import todolistlogo from './assets/to-do-list.png';
 import styles from './App.module.css';
+import {
+  reducer as todosReducer,
+  actions as todoActions,
+  initialState as initialTodoState,
+} from './reducers/todos.reducer.js';
 
-function App() {  
-
-  const [todoList,setTodoList] = useState([]);
-  const [isLoading,setIsLoading] = useState(false);
-  const [errorMessage,setErrorMessage] = useState("");
-  const [isSaving,setIsSaving]= useState(false);
+function App() { 
   const [sortField,setSortField] = useState('createdTime');
   const [sortDirection,setSortDirection] = useState('desc');
   const [queryString,setQueryString] = useState('');
@@ -19,6 +19,8 @@ function App() {
   const token = `Bearer ${import.meta.env.VITE_PAT}`;
   const headers = {"Authorization":token, 'Content-Type': 'application/json',}
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
+
+  const [todoState, dispatch] = useReducer(todosReducer, initialTodoState);
 
   /*function encodeUrl*****/
    const encodeUrl = useCallback(() => {
@@ -28,12 +30,12 @@ function App() {
             searchQuery = `&filterByFormula=SEARCH("${queryString}",+title)`;    
          }
          return encodeURI(`${url}?${sortQuery}${searchQuery}`);
-    },[sortField, sortDirection,queryString])
+    },[url,sortField, sortDirection,queryString])
   /***end of function encodeUrl */
 
   useEffect(() => {
     const fetchTodos = async () => {
-      setIsLoading(true);
+      dispatch({ type: todoActions.fetchTodos });
        const options ={method: 'GET', headers};
        try{
            const resp = await fetch(encodeUrl(),options);
@@ -41,21 +43,13 @@ function App() {
                throw new Error(`Fetch Error! status: ${resp.status}`);  
            } 
            const response = await resp.json();
-           const fetchedValues = response.records.map((record) => {
-           const todo = {  id: record.id, ...record.fields, };                  
-                 if(!todo.isCompleted){
-                   todo.isCompleted= false;
-                  }
-                  return todo;
-               })
-               setTodoList([...fetchedValues]);    
-            
+           dispatch({type:todoActions.loadTodos,records:response.records}) ;       
          }
          catch(error){
-              setErrorMessage(error.message);
+               dispatch({type:todoActions.setLoadError,errorMessage:error.message});
          }
          finally{
-              setIsLoading(false);
+             dispatch({ type: todoActions.turnOffLoading });
          }
       };
       fetchTodos();
@@ -72,28 +66,24 @@ function App() {
       body:JSON.stringify(payload),
     }
     try{
-      setIsSaving(true);
+      dispatch({type:todoActions.startRequest}); 
       const resp = await fetch(encodeUrl(),options);
       if(!resp.ok){
         throw new Error(`AddTodo Fetch Url Error! status: ${resp.status}`);   
       }        
       const {records} = await resp.json();     
-      const savedTodo = { id:records[0].id, ...records[0].fields, }
-      if(!records[0].fields.isCompleted){
-        savedTodo.isCompleted= false;
-      }
-      setTodoList([...todoList,savedTodo]);
+      dispatch({type:todoActions.addTodo,records:records});
     }
     catch(error){
-     setErrorMessage(error.message);
+     dispatch({type:todoActions.setLoadError,errorMessage:error.message});
     }
     finally{
-      setIsSaving(false);
+      dispatch({type:todoActions.endRequest}); 
     } 
   } //end of addTodo
 
 /*********updateAirtable function for update and complete todo******* */
- async function updateAirtable(payload,originalTodo,updatedTodos){
+ async function updateAirtable(payload,originalTodo){
      const options = {
       method: 'PATCH',
       headers,
@@ -104,45 +94,32 @@ function App() {
       if(!resp.ok){
        throw new Error(`Update Airtable Fetch Url Error! status: ${resp.status} `);   
       }
-      setTodoList(updatedTodos);     
-
     }
     catch(error){
-      setErrorMessage(`${error.message}.Reverting todo ...`);
-      const revertedTodos = todoList.map((todo) => todo.id===originalTodo.id ? originalTodo : todo);
-      setTodoList([...revertedTodos]);
+     dispatch({type:todoActions.setLoadError,errorMessage:error.message});
+     dispatch({type:todoActions.revertTodo,records:todoState.todoList,
+              editedTodo:originalTodo,errorMessage:error.message});
     }
     finally{
-      setIsSaving(false);
+      dispatch({type:todoActions.endRequest}); 
     }
 
   }  
 /******completeTodo******/
  async function completeTodo({id}){
-    const updatedTodos = todoList.map((todos) => {
-      if(todos.id === id) {        
-        return { ...todos, isCompleted:true};
-       } 
-       return todos;
-    }); 
-    const originalTodo = todoList.find((todo) => todo.id === id);
+    const originalTodo = todoState.todoList.find((todo) => todo.id === id); 
+    dispatch({type:todoActions.completeTodo,records:todoState.todoList,id});
     const payload ={
-      records: [{  id: id,  fields:{ title:originalTodo.title,isCompleted:true, }} ]
+      records: [{  id: id,  fields:{ isCompleted:true }} ]
     }
-    updateAirtable(payload,originalTodo,updatedTodos);
+    updateAirtable(payload,originalTodo);
   } //end of completeTodo
 
   
 /******updateTodo******/
- async function updateTodo({editedTodo}){
-      
-    const updatedTodos = todoList.map((todos) => {
-      if(todos.id === editedTodo.id){
-        return { ...todos, title:editedTodo.title};
-      }
-      return todos;
-    });
-    const originalTodo = todoList.find((todo) => todo.id === editedTodo.id) 
+ async function updateTodo({editedTodo}){    
+     const originalTodo = todoState.todoList.find((todo) => todo.id === editedTodo.id) 
+     dispatch({type:todoActions.updateTodo,records:todoState.todoList,originalTodo,editedTodo});
     const payload = {
         records: [
           {
@@ -154,7 +131,7 @@ function App() {
           }
         ]
    }
-    updateAirtable(payload,originalTodo,updatedTodos);
+    updateAirtable(payload,originalTodo);
         
   }// end of updateTodo
   return (
@@ -163,14 +140,15 @@ function App() {
         <img src={todolistlogo} alt="Todo Logo" width='35' />
         <h1>Todo List</h1>
       </div>
-      <TodoForm onAddTodo={addTodo} isSaving={isSaving}/>
-      <TodoList todoList={todoList} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo} isLoading={isLoading}/> 
+      <TodoForm onAddTodo={addTodo} isSaving={todoState.isSaving}/>
+      <TodoList todoList={todoState.todoList} onCompleteTodo={completeTodo} 
+                onUpdateTodo={updateTodo} isLoading={todoState.isLoading}/> 
       <hr/>
        <TodosViewForm sortDirection={sortDirection} setSortDirection={setSortDirection} 
                       sortField={sortField} setSortField={setSortField}
                       queryString={queryString} setQueryString={setQueryString} />
-       {errorMessage  && (<div className={styles.errormsg}><hr/><p>{errorMessage}</p>
-       <input type="button" value="Dismiss Error Message" onClick ={()=> setErrorMessage('')}/>
+       {todoState.errorMessage  && (<div className={styles.errormsg}><hr/><p>{todoState.errorMessage}</p>
+       <input type="button" value="Dismiss Error Message" onClick ={()=> dispatch({ type: todoActions.clearError })}/>
        </div>)
        }     
     </div>

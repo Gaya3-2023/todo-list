@@ -109,4 +109,16 @@
    8. Installed testing libraries (as per week 8) 'npm install --save-dev @testing-library/dom @testing-library/ 
       react @testing-library/jest-dom @testing-library/user-event eslint-plugin-jest-dom jsdom vitest' . Updated package.json to add 'test:"vitest" under scripts.  Also, updated the vite.config.js to work with test libraries and look for setup file(test.setup.js)
 
-   
+
+   ## Week 13:
+
+   1. Created a new directory src/reducers and created a new file todos.reducer.js
+   2. Define state and actions.
+   3. Created reducer function for actions(fetchTodos,loadTodos,setLoadError,startRequest,addTodo,endRequest,updateTodo,completeTodo,revertTodo and clearError) and included the state logic to reducer.
+   4. export the initialState,reducer,actions in reducer.js
+   5. Import and alias reducer code in App.jsx
+   6. Replaced the state update logic in App with a dispatch for each actions defined in reducer.
+   7. Updated reference to State.
+   8. removed index.css import statement from main.jsx as per week12 reviewer suggestion.
+   9. Removed teh line ('react-hooks' : reactHook',) from the plugins object since it is already included via the extends config in file 'eslint.config.js' as per wee12 reviewer suggestion.
+ 
