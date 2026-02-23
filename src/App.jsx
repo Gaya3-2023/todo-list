@@ -37,20 +37,20 @@ function App() {
 
   const location = useLocation();
  
-  
-  useEffect(() =>{
-    
+  useEffect(()=>{
+    let newTitle;
     if(location.pathname === "/"){
-       setTitle("Todo List");
+      newTitle ="Todo List";
     }
     else if(location.pathname === "/about"){
-     setTitle("About");
+      newTitle="About";
     }
     else{
-      setTitle("Not Found");
+      newTitle="Not Found";
     }
-     document.title= title;
-  },[location.pathname,title])
+    setTitle(newTitle);
+    document.title=newTitle;
+  },[location.pathname]);
  
   useEffect(() => {
     const fetchTodos = async () => {
