@@ -120,5 +120,19 @@
    6. Replaced the state update logic in App with a dispatch for each actions defined in reducer.
    7. Updated reference to State.
    8. removed index.css import statement from main.jsx as per week12 reviewer suggestion.
-   9. Removed teh line ('react-hooks' : reactHook',) from the plugins object since it is already included via the extends config in file 'eslint.config.js' as per wee12 reviewer suggestion.
+   9. Removed the line ('react-hooks' : reactHook',) from the plugins object since it is already included via the extends config in file 'eslint.config.js' as per wee12 reviewer suggestion.
  
+   ## Week 14:
+
+   1. Incorporated the week 13 review suggestions
+   2. Installed React-Router into the project using npm install react-router
+   3. Wrapped the App instance with BrowserRouter imported from react-router in main.jsx.
+   4. Created new component, TodosPage in src/pages. Refactored all Todo-related component instances in App.jsx to 
+      TodosPage.Added an instance of TodosPage to replace the TodoForm,TodoList, and TodosViewForm instances.Added the appropriate props to TodosPage instance.
+   5. Created a Header Component in src/shared to replace h1 element in app. Two navLink component instance 
+      from react-router library to navigate to home and about page. Replaced the h1 element with header component in app and created useEffect to set the title based on location.pathname.
+   6. Added route instances in app to route to todospage,about and notfound.
+   7. craeted a new component About and NotFound in src/pages. About page will return 1 or more paragraph about the    
+      app. Notfound page will return 'Page not found' and link back to home page.
+   8. Pagination for todo list is done in TodoList.jsx using useSearchParams hook from react-router.
+   

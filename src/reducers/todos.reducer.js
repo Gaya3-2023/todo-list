@@ -15,9 +15,9 @@ const actions = {
     revertTodo: 'revertTodo',
     //action on Dismiss Error button
     clearError: 'clearError',
-    turnOffLoading:'turnOffLoading',
+    
 };
-let initialState ={
+const initialState ={
     todoList: [],
     isLoading: false,
     isSaving:false,
@@ -42,10 +42,10 @@ function reducer(state = initialState, action) {
         return todo;
        });
         return {...state,todoList:[...list],isLoading:false};
-    }//end of case loadTkodos
+    }//end of case loadTodos
     
     case actions.setLoadError:        
-        return{ ...state,errorMessage:action.errorMessage,isLoading:false};
+        return{ ...state,errorMessage:action.error.message,isLoading:false};
 
     case actions.startRequest:  
         return { ...state,isSaving :true};
@@ -63,24 +63,11 @@ function reducer(state = initialState, action) {
 
     case actions.endRequest: 
          return{ ...state,isLoading:false,isSaving:false};
-    
-    case actions.revertTodo:  
-    {
-             const updatedTodos = action.records.map((todos) => {
-             if(todos.id === action.editedTodo.id){
-                   return { ...action.editedTodo };
-             }
-             return todos;
-            });
-             const updatedState = { ...state,todoList:updatedTodos,};
-             if(action.errorMessage){                
-                updatedState.errorMessage=`${action.errorMessage}. Reverting todo...`;
-             }
-             return updatedState;   
-    }  //end of revertTodo       
+   
+    case actions.revertTodo:        
     case actions.updateTodo: 
     {        
-         const updatedTodos = action.records.map((todos) => {
+         const updatedTodos = state.todoList.map((todos) => {
              if(todos.id === action.editedTodo.id){
                    return { ...action.editedTodo };
              }
@@ -88,7 +75,7 @@ function reducer(state = initialState, action) {
             });
              const updatedState = { ...state,todoList:updatedTodos,};
              if(action.error){
-                updatedState.errorMessage=`${action.errorMessage}`;
+                updatedState.errorMessage = action.error.message;
              }
              return updatedState;       
         }
@@ -96,7 +83,7 @@ function reducer(state = initialState, action) {
 
     case actions.completeTodo: 
     {       
-         const updatedTodos = action.records.map((toDo) => {
+         const updatedTodos = state.todoList.map((toDo) => {
             if(toDo.id === action.id){
                 return{ ...toDo,isCompleted:true};
             }
