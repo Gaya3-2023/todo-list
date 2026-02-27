@@ -135,4 +135,8 @@
    7. craeted a new component About and NotFound in src/pages. About page will return 1 or more paragraph about the    
       app. Notfound page will return 'Page not found' and link back to home page.
    8. Pagination for todo list is done in TodoList.jsx using useSearchParams hook from react-router.
+
+ ## Week 15:
+
+   1. Incorporated the week 14 review suggestions in App.jsx.
    
